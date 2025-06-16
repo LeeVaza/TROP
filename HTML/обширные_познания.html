@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TROP</title>
+    <link rel="stylesheet" type="text/css" href="любвеобильная.css" </head>
+    <link rel="icon" href="ЛЕЙБЛ-ФОРМ.png">
+</head>
+
+<body>
+    <header>
+        <div class="gradient-animation"></div>
+        <div class="navbar">
+            <div class="nav-1">
+                <a href="">
+                    <!-- <img src="./интро.png" alt=""> -->
+                    <img src="TROP.svg" alt="" style="width: 80px;">
+                </a>
+            </div>
+            <div class="nav-2">
+                <a href="#home">Главный экран</a>
+                <a href="#description">Описание</a>
+                <a href="#news">Новости</a>
+                <a href="#products">Товары</a>
+                <a href="#tales">Новеллы</a>
+                <a href="#feedback">Связь</a>
+            </div>
+            <div class="nav-3">
+                <button class="sisi"><img src="./СменВсего.png" class="pointer_img" alt=""></button>
+                <button class="sisi"><img src="./Глобал.png" class="globus_img" alt=""></button>
+                <div class="spisok">
+                    <p>Русский</p>
+                    <p>English</p>
+                    <p>Deutsch</p>
+                    <p>Français</p>
+                    <p>Español</p>
+                    <p>Italiano</p>
+                    <p>Português</p>
+                    <p>Українська</p>
+                </div>
+                <div class="spisok2">
+                    <img src="./Озвучка.png" alt="" style="padding-bottom: 10px;">
+                    <img src="./Текст.png" alt="">
+                    <img src="./ЯЗ_Барьер.png" alt="">
+                </div>
+                <c href="" class="play_btn">
+                    <p>Играть</p>
+                </c>
+                <a href="" class="sisi"><img src="./аккаунт.png" class="acount_img" alt=""></a>
+            </div>
+        </div>
+    </header>
+    <div class="home" id="home">
+        <img src="плей.png" alt="плей" class="play">
+        <div class="shari">
+            <div class="shar"></div>
+            <div class="shar2"></div>
+            <div class="shar3"></div>
+        </div>
+        <div class="bomhz">
+            <h6>Скачать игру</h6>
+            <p class="close_b">×</p>
+            <div class="zhmob">
+                <div class="zala"> <img src="загрузки/стим.png" alt=""> <img src="загрузки/эпик.png" alt=""></div>
+                <div class="zala"><img src="загрузки/гуглплей.png" alt=""> <img src="загрузки/эппл.png" alt=""></div>
+                <div class="zala"><img src="загрузки/пк.png" alt=""> <img src="загрузки/пс.png" alt=""></div>
+                <div class="zala"><img src="загрузки/икс.png" alt=""> <img src="загрузки/нинка.png" alt=""></div>
+            </div>
+        </div>
+        <img src="The return of power.png" alt="ИГРА" class="game">
+        <video src="искорки.mp4" autoplay="autoplay" muted="muted" loop="loop" class="video"></video>
+        <div class="login--background">
+            <div class="bg-img">
+                <div class="login">
+                    <img src="TROP.svg" alt="" class="trop">
+                    <a href="" class="sisi"><img src="./Глобал.png" class="globus_img" alt=""></a>
+                    
+                    <form id="loginForm" novalidate>
+                        <!-- Поле Email с валидацией -->
+                        <input type="email" id="email" name="email" placeholder="Почта" required
+                               pattern="^(?=.{5,32}@)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                               minlength="11" maxlength="48">
+                        <div class="error-message" id="email-error"></div>
+                        
+                        <!-- Поле Пароль с валидацией -->
+                        <input type="password" id="password" name="password" placeholder="Пароль" required
+                               minlength="8" maxlength="64">
+                        <div class="error-message" id="password-error"></div>
+                        
+                        <!-- Поле UID с валидацией -->
+                        <input type="text" id="uid" name="uid" placeholder="UID" required
+                               pattern="^[0-8]{9}$" maxlength="9">
+                        <div class="error-message" id="uid-error"></div>
+                        
+                        <!-- Поле Сервер с валидацией -->
+                        <input type="text" id="server" name="server" placeholder="Сервер" required
+                               pattern="^(10|01|11|00)$" maxlength="2">
+                        <div class="error-message" id="server-error"></div>
+                        
+                        <button type="button" class="login--btn" id="loginBtn" disabled event>Войти</button>
+                        <p>Нет аккаунта? <span><a href="#">Зарегистрируйся</a></span></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <script>
+        // Разрешенные домены
+        const ALLOWED_DOMAINS = [
+            "gmail.com", "bk.ru", "yandex.ru", "mail.ru", 
+            "yahoo.com", "hotmail.com", "outlook.com", 
+            "aol.com", "internet.ru", "inbox.ru", "list.ru", "indeedemail.com"
+        ];
+        
+        // Функция для отображения ошибок
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.color = 'red';
+        }
+        
+        // Функция для очистки ошибок
+        function clearError(elementId) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = '';
+        }
+        
+        // Проверка домена email
+        function validateDomain(email) {
+            if (!email.includes('@')) return false;
+            
+            const domain = email.split('@')[1].toLowerCase();
+            return ALLOWED_DOMAINS.includes(domain);
+        }
+        
+        // Валидация email
+        function validateEmail() {
+            const email = document.getElementById('email').value.trim();
+            const emailError = 'email-error';
+            
+            if (!email) {
+                showError(emailError, 'Поле обязательно для заполнения');
+                return false;
+            }
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                showError(emailError, 'Введите корректный адрес электронной почты');
+                return false;
+            }
+            
+            if (email.length < 11) {
+                showError(emailError, 'Email должен содержать минимум 11 символов');
+                return false;
+            }
+            
+            if (email.length > 48) {
+                showError(emailError, 'Email должен содержать максимум 48 символов');
+                return false;
+            }
+            
+            const [localPart, domain] = email.split('@');
+            if (localPart.length < 5 || localPart.length > 32) {
+                showError(emailError, 'До символа @ должно быть от 5 до 32 символов');
+                return false;
+            }
+            
+            if (!validateDomain(email)) {
+                const domainsList = ALLOWED_DOMAINS.join(', ');
+                showError(emailError, `Введи разрешенный домен`);
+                return false;
+            }
+            
+            clearError(emailError);
+            return true;
+        }
+        
+        // Валидация пароля
+        function validatePassword() {
+            const password = document.getElementById('password').value;
+            const passwordError = 'password-error';
+            
+            if (!password) {
+                showError(passwordError, 'Поле обязательно для заполнения');
+                return false;
+            }
+            
+            if (password.length < 8) {
+                showError(passwordError, 'Пароль должен содержать минимум 8 символов');
+                return false;
+            }
+            
+            if (password.length > 64) {
+                showError(passwordError, 'Пароль должен содержать максимум 64 символа');
+                return false;
+            }
+            
+            const specialChars = /[@#$%^’&*:;№!?\/()\\]/g;
+            const specialCharsCount = (password.match(specialChars) || []).length;
+            const hasDigits = /\d/.test(password);
+            const hasUpperCase = /[A-ZА-Я]/.test(password);
+            const hasLowerCase = /[a-zа-я]/.test(password);
+            
+            if (specialCharsCount < 2) {
+                showError(passwordError, 'Пароль должен содержать минимум 2 специальных символа');
+                return false;
+            }
+            
+            if (!hasDigits) {
+                showError(passwordError, 'Пароль должен содержать цифры');
+                return false;
+            }
+            
+            if (!hasUpperCase) {
+                showError(passwordError, 'Пароль должен содержать прописные буквы');
+                return false;
+            }
+            
+            if (!hasLowerCase) {
+                showError(passwordError, 'Пароль должен содержать строчные буквы');
+                return false;
+            }
+            
+            clearError(passwordError);
+            return true;
+        }
+        
+        // Валидация UID
+        function validateUid() {
+            const uid = document.getElementById('uid').value;
+            const uidError = 'uid-error';
+            
+            if (!uid) {
+                showError(uidError, 'Поле обязательно для заполнения');
+                return false;
+            }
+            
+            if (uid.length !== 9) {
+                showError(uidError, 'UID должен содержать ровно 9 символов');
+                return false;
+            }
+            
+            if (!/^[0-8]+$/.test(uid)) {
+                showError(uidError, 'UID должен содержать только цифры от 0 до 8');
+                return false;
+            }
+            
+            clearError(uidError);
+            return true;
+        }
+        
+        // Валидация сервера
+        function validateServer() {
+            const server = document.getElementById('server').value;
+            const serverError = 'server-error';
+            const serverCodes = {
+                '10': 'Страны Океании',
+                '01': 'Америка',
+                '11': 'Азия',
+                '00': 'Европа'
+            };
+            
+            if (!server) {
+                showError(serverError, 'Поле обязательно для заполнения');
+                return false;
+            }
+            
+            if (!/^(10|01|11|00)$/.test(server)) {
+                showError(serverError, 'Неверный код сервера. Допустимые значения: 00, 01, 10, 11');
+                return false;
+            }
+            
+            // Показываем название сервера при правильном вводе
+            const errorElement = document.getElementById(serverError);
+            errorElement.textContent = serverCodes[server];
+            errorElement.style.color = 'green';
+            
+            return true;
+        }
+        
+        // Функция для проверки валидности всех полей
+        function validateForm() {
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isUidValid = validateUid();
+            const isServerValid = validateServer();
+            
+            // Активируем кнопку только если все поля валидны
+            document.getElementById('loginBtn').disabled = !(isEmailValid && isPasswordValid && isUidValid && isServerValid);
+        }
+        
+        // Добавляем обработчики событий для всех полей ввода
+        document.getElementById('email').addEventListener('input', function() {
+            validateEmail();
+            validateForm();
+        });
+        document.getElementById('password').addEventListener('input', function() {
+            validatePassword();
+            validateForm();
+        });
+        document.getElementById('uid').addEventListener('input', function() {
+            validateUid();
+            validateForm();
+        });
+        document.getElementById('server').addEventListener('input', function() {
+            validateServer();
+            validateForm();
+        });
+        
+        // Основная функция валидации при отправке формы
+        document.getElementById('loginForm').addEventListener('button', function(e) {
+            e.preventDefault();
+            
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isUidValid = validateUid();
+            const isServerValid = validateServer();
+            
+            if (isEmailValid && isPasswordValid && isUidValid && isServerValid) {
+                const server = document.getElementById('server').value;
+                const serverCodes = {
+                    '10': 'Страны Океании',
+                    '01': 'Америка',
+                    '11': 'Азия',
+                    '00': 'Европа'
+                };
+                const serverName = serverCodes[server];
+                alert(`Регистрационные данные верны! Выбран сервер: ${serverName}`);
+                this.submit();
+            }
+        });
+        
+        // Инициализируем проверку при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            validateForm();
+        });
+        </script>
+        
+        
+    </div>
+    <div class="description" id="description">
+        <p>TROP (The Return Of Forces). ИЛИ ЖЕ. Возвращение Сил.
+            Онлайн игра в жанре асимметричного онлайн хоррора 3v1 (три против одного) с элементами гачи.
+            Как Вы думаете что находится за нашим* отражение - в зеркале? Неизвестно?
+            За стеклянной пластиной находится брешь мироздания, в которую можно попасть крайне редко. И туда ни в коем
+            случае нельзя попадать. Представьте - Вы не помните ни себя, ни свою жизнь. О Вас тоже забудут. - все это
+            сопровождается после того как оказаться "За Зеркалом" (ЗАзеркалье), так называется это пространство без
+            входов и выходов.
+            Но судьба благосклонна, иногда, меж мирами появляются загадочные двери, через которые можно перемещаться.
+            Будьте так же внимательны - двери несут опасность, маскируясь под обычный ландшафт, они могут появится в
+            любом месте, иле же заменить уже существующую. Люди попавшие через эти двери в Мир между мирами, также
+            становятся ЕЁ жертвами.
+            ЕЁ* - богиня этого мира, заседавшая и правящая над ним. Не известно кто она и сколько уже здесь находится?
+            Является ли уроженка этого мира или же одна из тех, кто обречен? Известно только одно - имея "Ключ Миров",
+            она та, кто похищает людей и смотрит за их страданиями, путешествуя во времени и пространстве. Не дайте Вас
+            запутать - Она проявляет себя как черная тень, и некогда не выходит в свет.</p>
+        <img src="ТРИсестрыИТРИканавки.webp" alt="" class="tri">
+    </div>
+    <div class="news" id="news">
+        <img src="./fatum_sister.png" alt="">
+        <table>
+            <tr>
+                <th colspan="6" class="txt-blue">Новости версии 1.12</th>
+            </tr>
+            <tr>
+                <th colspan="6" class="txt-blue2">Новые игровые персонажи</th>
+            </tr>
+            <tr>
+                <th>Псевдоним</th>
+                <th>Стихия</th>
+                <th>Класс</th>
+                <th>Жизнь</th>
+                <th>Атака</th>
+                <th>Описание</th>
+            </tr>
+            <tr>
+                <th>Luna Eclipse</th>
+                <th>
+                    <p class="cryo-txt">Крио</p>
+                </th>
+                <th>Атака</th>
+                <th>300</th>
+                <th>45</th>
+                <th style="width: 300px;font-weight: 100;">LE оставляет очертания луны, подлетая над землей LE приводит
+                    в действие (во вращение) стеклянные нити - спицы, которые полностью убивают У., попавшего в область
+                    способности.</th>
+            </tr>
+            <tr>
+                <th>Solar Eclipse</th>
+                <th>
+                    <p class="pyro-txt">Пиро</p>
+                </th>
+                <th>Балланс</th>
+                <th>250</th>
+                <th>35</th>
+                <th style="width: 300px;font-weight: 100;">SE оставляет очертания солнца и накладывает на себя эффект
+                    "Затмения". Этот эффект позволяет оглушить и ослепить У. (если он заденет SE)</th>
+            </tr>
+            <tr>
+                <th>Starry Eclipse</th>
+                <th>
+                    <p class="electro-txt">Электро</p>
+                </th>
+                <th>Поддержка</th>
+                <th>200</th>
+                <th>25</th>
+                <th style="width: 200px;font-weight: 100;">SE оставляет очертания звезды и накладывает на союзников щит.
+                    Данный щит блокирует любой входящий урон. Действует на 2 атаки. Продолжительность: неограничена.
+                </th>
+            </tr>
+            <tr>
+                <th colspan="6" class="txt-blue2">Исправление ошибок</th>
+            </tr>
+            <tr>
+                <th colspan="6" style="font-weight: 100;">исправили все</th>
+            </tr>
+            <tr>
+                <th colspan="6" class="txt-blue2">События</th>
+            </tr>
+            <tr>
+                <th colspan="6" style="font-weight: 100;">Открыта новая сюжетная арка</th>
+            </tr>
+            <tr>
+                <th colspan="6" style="font-weight: 100;">Открыты новые истории персонажей</th>
+            </tr>
+            <tr>
+                <th colspan="6" style="font-weight: 100;">Открыты новые ежемесячные события</th>
+            </tr>
+        </table>
+        <img src="./fatum_sister.png" alt="" style="transform: scale(-1, 1)">
+    </div>
+    <div class="products" id="products">
+        <h5>Выбери набор:</h5>
+        <div class="kachok">
+            <div class="kachok1">
+                <div class="me">
+                    <img src="донат/горстка.png" alt="Набор 1" class="kachok">
+                    <div class="be">
+                        <p>Горстка Камней Душ</p>
+                        <p>100</p>
+                    </div>
+                </div>
+                <div class="me">
+                    <img src="донат/насыпь.png" alt="Набор 2" class="kachok">
+                    <div class="be">
+                        <p>Насыпь Камней Душ</p>
+                        <p>300</p>
+                    </div>
+                </div>
+                <div class="me">
+                    <img src="донат/мешочек.png" alt="Набор 3" class="kachok">
+                    <div class="be">
+                        <p>Мешочек Камней Душ</p>
+                        <p>600</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kachok1">
+                <div class="me">
+                    <img src="донат/сумка.png" alt="Набор 4" class="kachok">
+                    <div class="be">
+                        <p>Сумка Камней Душ</p>
+                        <p>900</p>
+                    </div>
+                </div>
+                <div class="me">
+                    <img src="донат/футляр.png" alt="Набор 5" class="kachok">
+                    <div class="be">
+                        <p>Футляр Камней Душ</p>
+                        <p>1800</p>
+                    </div>
+                </div>
+                <div class="me">
+                    <img src="донат/саркофаг.png" alt="Набор 6" class="kachok">
+                    <div class="be">
+                        <p>Саркофаг Камней Душ</p>
+                        <p>2700</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="kamni">
+                <div class="kamni1">
+                </div>
+                <div class="kamni1">
+                </div>
+            </div> -->
+        <div class="brak">
+            <input type="text" placeholder="UID" class="dub">
+            <input type="text" placeholder="Сервер" class="dub">
+            <p class="tavar">*Аккуратнее: при пополнении аккаунта убедитесь в правильно введенном UID и Сервере, на
+                который
+                будут переадресованы товарные ресурсы. Пополнение аккаунта происходит в течении часа после покупки.
+                Возврат
+                средств возможен при полном обнуление ресурсов аккаунта в момент покупки ресурсов. При первой покупке
+                даётся
+                бонус пятьдесят процентов от пополненной суммы.</p>
+        </div>
+    </div>
+    <div class="tales" id="tales">
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide rty">
+                    <div class="block"></div>
+                    <div class="character-info">
+                        <button class="sum">Пройти историю с:</button>
+                        <h2 style="color: rgb(255, 197, 5);">Уданья</h2>
+                        <p class="mandana"> - спокойная и рассудительный среди трёх сестëр. Она способна найти
+                            компромисс в спорах и
+                            в
+                            недопониманиях, к еë словам всегда прислушиваются. Олицетворяя небесный элемент - СОЛНЦЕ
+                            - способна
+                            смотреть в прошлое.
+                        </p>
+                    </div>
+                    <img src="Урд.png" alt="Персонаж 2" class="character-image1">
+                </div>
+                <div class="slide rte">
+                    <div class="block2"></div>
+                    <div class="character-info">
+                        <button class="sum2">Пройти историю с:</button>
+                        <h2 style="color: rgb(134, 5, 255);">Ванесса</h2>
+                        <p class="mandana"> - скрытная и безэмоциональная среди трёх сестëр. Она способна
+                            контролировать
+                            и управлять
+                            другими,
+                            просто
+                            посмотрев своим убиваюшим взглядом. Олицетворяя небесный элемент - ЛУНУ - способна
+                            смотреть в
+                            настоящее.
+                        </p>
+                    </div>
+                    <img src="Верданди.png" alt="Персонаж 1" class="character-image2">
+                </div>
+                <div class="slide rtu">
+                    <div class="block3"></div>
+                    <div class="character-info">
+                        <button class="sum3">Пройти историю с:</button>
+                        <h2 style="color: rgb(255, 5, 151);">Сандрин</h2>
+                        <p class="mandana"> - веселая и жизнерадостная среди трёх сестëр. Она способна заставить
+                            всех
+                            делать то, что
+                            ей
+                            нужно, взамен на большую цену. Олицетворяя небесный элемент - ЗВЕЗДУ - способна смотреть
+                            в будущее.
+                        </p>
+                    </div>
+                    <img src="Скульд.png" alt="Персонаж 3" class="character-image">
+                </div>
+            </div>
+            <button id="prev" class="game-button">
+                <img src="назад.png" alt="Назад">
+            </button>
+            <button id="next" class="game-button">
+                <img src="вперёд.png" alt="Вперёд">
+            </button>
+        </div>
+    </div>
+    <script src="слёзыПОщёки.js"></script>
+    <div class="feedback" id="feedback">
+        <ul class="ama">
+            <li class="li-1">
+                <a href="https://x.com/?lang=ru&mx=2">
+                    <img src="иконки/icon_1.png">
+                    <span>TWITTER</span>
+                </a>
+            </li>
+            <li class="li-2">
+                <a href="https://www.instagram.com/">
+                    <img src="иконки/icon_5.png">
+                    <span>INSTAGRAM</span>
+                </a>
+            </li>
+            <li class="li-3">
+                <a href="https://www.facebook.com/">
+                    <img src="иконки/icon_2.png">
+                    <span>FACEBOOK</span>
+                </a>
+            </li>
+            <li class="li-4">
+                <a href="https://www.youtube.com/">
+                    <img src="иконки/icon_4.png">
+                    <span>YOUTUBE</span>
+                </a>
+            </li>
+            <li class="li-5">
+                <a href="https://discord.com/">
+                    <img src="иконки/icon_3.png">
+                    <span>DISCORD</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <footer>
+        <h3>©LeeVazaEntertainment</h3>
+        <img class="leps" src="ЛОГО.png" alt="">
+        <h3>ВСЕ ПРАВА ЗАЩИЩЕНЫ</h3>
+    </footer>
+    <script>
+        document.querySelector('.login--btn').
+            addEventListener('click', function () {
+                const login = document.querySelector('.login');
+                const img = document.querySelector('.bg-img');
+                const bg = document.querySelector('.login--background');
+                login.classList.toggle('close');
+                img.classList.toggle('close');
+                bg.classList.toggle('close');
+            });
+        //document.querySelector('loginBtn').
+        //    addEventListener('click', function () {
+        //        const login = document.querySelector('.login');
+        //        const img = document.querySelector('.bg-img');
+        //        const bg = document.querySelector('.login--background');
+        //        login.classList.toggle('close');
+        //        img.classList.toggle('close');
+        //        bg.classList.toggle('close');
+        //    });
+        document.querySelector('.play_btn').
+            addEventListener('click', function () {
+                const login = document.querySelector('.bomhz');
+                login.classList.toggle('openwind');
+            });
+        document.querySelector('.play').
+            addEventListener('click', function () {
+                const login = document.querySelector('.bomhz');
+                login.classList.toggle('openwind');
+            });
+        document.querySelector('.close_b').
+            addEventListener('click', function () {
+                const login = document.querySelector('.bomhz');
+                login.classList.toggle('openwind');
+            });
+        document.querySelector('.globus_img').
+            addEventListener('click', function () {
+                const login = document.querySelector('.spisok');
+                login.classList.toggle('herd');
+            });
+        document.querySelector('.pointer_img').
+            addEventListener('click', function () {
+                const login = document.querySelector('.spisok2');
+                login.classList.toggle('herd2');
+            });
+    </script>
+</body>
+
+</html>
